@@ -1,0 +1,3 @@
+kitchen-quest.png
+bedroom-quest.png
+etc
