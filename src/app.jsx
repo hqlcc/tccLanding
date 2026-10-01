@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ArrowRight,
@@ -9,6 +9,8 @@ import {
   HeartHandshake,
   ImagePlus,
   Menu,
+  Moon,
+  Sun,
   ShieldCheck,
   Sparkles,
   Star,
@@ -106,6 +108,56 @@ function Logo({ footer = false }) {
   );
 }
 
+function ThemeToggle() {
+  const [theme, setTheme] = useState(
+    () => document.documentElement.dataset.theme || "light",
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    function followSystem(event) {
+      try {
+        const saved = localStorage.getItem("houseflow-theme");
+        if (saved === "light" || saved === "dark") return;
+      } catch {
+        /* O tema também funciona sem armazenamento. */
+      }
+      setTheme(event.matches ? "dark" : "light");
+    }
+    media.addEventListener("change", followSystem);
+    return () => media.removeEventListener("change", followSystem);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", theme === "dark" ? "#0d1916" : "#f3f3f3");
+  }, [theme]);
+
+  function toggleTheme() {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    try {
+      localStorage.setItem("houseflow-theme", nextTheme);
+    } catch {
+      /* Preferência mantida nesta visita. */
+    }
+    setTheme(nextTheme);
+  }
+
+  return (
+    <button
+      className="theme-toggle"
+      type="button"
+      onClick={toggleTheme}
+      aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+      title={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+    >
+      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+    </button>
+  );
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -118,7 +170,11 @@ function Header() {
       <div className="container header__content">
         <Logo />
 
-        <nav className={`nav ${menuOpen ? "nav--open" : ""}`}>
+        <nav
+          id="navigation"
+          aria-label="Navegação principal"
+          className={`nav ${menuOpen ? "nav--open" : ""}`}
+        >
           <a href="#como-funciona" onClick={closeMenu}>
             Como funciona
           </a>
@@ -136,13 +192,19 @@ function Header() {
           </a>
         </nav>
 
-        <button
-          className="menu-button"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Abrir menu"
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        <div className="header__actions">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="menu-button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-expanded={menuOpen}
+            aria-controls="navigation"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
     </header>
   );
@@ -603,7 +665,12 @@ function FinalCTA() {
           <p>Crie sua casa, convide sua equipe e complete a primeira missão.</p>
         </div>
 
-        <a className="button button--dark" href="#">
+        <a
+          className="button button--dark"
+          href="https://github.com/hqlcc/tccLanding"
+          target="_blank"
+          rel="noreferrer"
+        >
           QUERO PARTICIPAR
           <ArrowRight />
         </a>
@@ -631,18 +698,22 @@ function Footer() {
 
         <div className="footer__links">
           <strong>PROJETO</strong>
-          <a href="LINK_DO_ARTIGO" target="_blank" rel="noreferrer">
+          <a
+            href="https://github.com/hqlcc/tccLanding"
+            target="_blank"
+            rel="noreferrer"
+          >
             Conheça o projeto
           </a>
 
           <a
-            href="https://github.com/hqlcc/houseTcc"
+            href="https://github.com/hqlcc/tccLanding"
             target="_blank"
             rel="noreferrer"
           >
             GitHub
           </a>
-          <a href="mailto:contato@houseflow.com">Contato</a>
+          <a href="#inicio">Voltar ao início</a>
         </div>
       </div>
 

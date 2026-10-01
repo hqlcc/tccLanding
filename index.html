@@ -12,11 +12,31 @@
       content="Transforme tarefas domésticas em missões colaborativas."
     />
 
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("houseflow-theme");
+        } catch {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').content =
+          theme === "dark" ? "#0d1916" : "#f3f3f3";
+      })();
+    </script>
+
     <title>HouseFlow — Sua casa, seu time</title>
   </head>
 
   <body>
     <div id="root"></div>
+    <noscript
+      >Ative o JavaScript no navegador para acessar o HouseFlow.</noscript
+    >
 
     <script type="module" src="/src/main.jsx"></script>
   </body>
