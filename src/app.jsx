@@ -25,11 +25,11 @@ import {
 import mascotHero from "./assets/mascots/mascot-hero.png";
 import mascotCta from "./assets/mascots/mascot-cta.png";
 
-import kitchenQuest from "./assets/quests/kitchen-quest.png";
+import kitchenQuest from "./assets/quests/kitchen-quest.png";*/
 
-import henriqueAvatar from "./assets/avatars/henrique.png";
+import lucasAvatar from "./assets/avatars/lucas.png";
 import joaoAvatar from "./assets/avatars/joao.png";
-import marinaAvatar from "./assets/avatars/maria.png";*/
+import mariaAvatar from "./assets/avatars/maria.png";
 
 const rooms = [
   {
@@ -120,7 +120,6 @@ function ThemeToggle() {
         const saved = localStorage.getItem("houseflow-theme");
         if (saved === "light" || saved === "dark") return;
       } catch {
-        /* O tema também funciona sem armazenamento. */
       }
       setTheme(event.matches ? "dark" : "light");
     }
@@ -140,7 +139,6 @@ function ThemeToggle() {
     try {
       localStorage.setItem("houseflow-theme", nextTheme);
     } catch {
-      /* Preferência mantida nesta visita. */
     }
     setTheme(nextTheme);
   }
@@ -246,8 +244,8 @@ function Hero() {
 
           <div className="hero__community">
             <div className="small-avatars">
-              <span>H</span>
               <span>M</span>
+              <span>L</span>
               <span>J</span>
               <span>+</span>
             </div>
@@ -598,9 +596,9 @@ function Community() {
           <article className="podium-card podium-card--second">
             <span className="podium-card__position">2</span>
 
-            <div className="podium-card__avatar">HQ</div>
+            <div className="podium-card__avatar"></div>
 
-            <strong>Henrique</strong>
+            <strong>Lucas</strong>
             <small>610 XP</small>
 
             <div className="podium-card__line" />
@@ -623,7 +621,7 @@ function Community() {
           <article className="podium-card podium-card--third">
             <span className="podium-card__position">3</span>
 
-            <div className="podium-card__avatar">JP</div>
+            <div className="podium-card__avatar"></div>
 
             <strong>João</strong>
             <small>480 XP</small>
