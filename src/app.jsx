@@ -7,7 +7,6 @@ import {
   Flame,
   Gamepad2,
   HeartHandshake,
-  ImagePlus,
   Menu,
   Moon,
   Sun,
@@ -20,16 +19,13 @@ import {
   Zap,
 } from "lucide-react";
 
-/*import logo from "./assets/brand/logo.svg";
-
-import mascotHero from "./assets/mascots/mascot-hero.png";
-import mascotCta from "./assets/mascots/mascot-cta.png";
-
-import kitchenQuest from "./assets/quests/kitchen-quest.png";*/
-
-import lucasAvatar from "./assets/avatars/lucas.png";
-import joaoAvatar from "./assets/avatars/joao.png";
-import mariaAvatar from "./assets/avatars/maria.png";
+import logo from "./assets/brand/logo03.png";
+import mascotHero from "./assets/mascots/mainMascote.png";
+import mascotCta from "./assets/mascots/checkListMascote.png";
+import kitchenQuest from "./assets/mascots/choresMascote.png";
+import mariaAvatar from "./assets/avatars/avatarMaria.png";
+import lucasAvatar from "./assets/avatars/avatarLucas.png";
+import joaoAvatar from "./assets/avatars/avatarJoao.png";
 
 const rooms = [
   {
@@ -97,12 +93,12 @@ function Logo({ footer = false }) {
   return (
     <a href="#inicio" className={`logo ${footer ? "logo--footer" : ""}`}>
       <span className="logo__image">
-        <ImagePlus size={18} />
+        <img src={logo} alt="" width="80" height="80" />
       </span>
 
       <span className="logo__text">
-        <strong>LOGO</strong>
-        <small>House Flow</small>
+        <strong>HouseFlow</strong>
+        <small>Sua casa, seu time.</small>
       </span>
     </a>
   );
@@ -120,6 +116,7 @@ function ThemeToggle() {
         const saved = localStorage.getItem("houseflow-theme");
         if (saved === "light" || saved === "dark") return;
       } catch {
+        /* O tema também funciona sem armazenamento. */
       }
       setTheme(event.matches ? "dark" : "light");
     }
@@ -139,6 +136,7 @@ function ThemeToggle() {
     try {
       localStorage.setItem("houseflow-theme", nextTheme);
     } catch {
+      /* Preferência mantida nesta visita. */
     }
     setTheme(nextTheme);
   }
@@ -244,9 +242,15 @@ function Hero() {
 
           <div className="hero__community">
             <div className="small-avatars">
-              <span>M</span>
-              <span>L</span>
-              <span>J</span>
+              <span>
+                <img src={mariaAvatar} alt="Maria" width="36" height="36" />
+              </span>
+              <span>
+                <img src={lucasAvatar} alt="Lucas" width="36" height="36" />
+              </span>
+              <span>
+                <img src={joaoAvatar} alt="João" width="36" height="36" />
+              </span>
               <span>+</span>
             </div>
 
@@ -261,14 +265,14 @@ function Hero() {
         <div className="hero-art">
           <div className="hero-art__background" />
 
-          <div className="image-placeholder image-placeholder--hero">
-            <ImagePlus size={50} strokeWidth={1.6} />
-
-            <strong>
-              MASCOTE OU
-              <br />
-              LOGO
-            </strong>
+          <div className="hero-mascot">
+            <img
+              src={mascotHero}
+              alt="Mascote do HouseFlow comemorando uma conquista com uma estrela de XP"
+              width="1024"
+              height="1024"
+              fetchPriority="high"
+            />
           </div>
 
           <div className="floating-card floating-card--quest">
@@ -407,7 +411,13 @@ function HouseHealth() {
             </div>
 
             <div className="avatar-placeholder">
-              <ImagePlus size={19} />
+              <img
+                src={mariaAvatar}
+                alt="Avatar de Maria"
+                width="44"
+                height="44"
+                loading="lazy"
+              />
             </div>
           </div>
 
@@ -490,9 +500,14 @@ function QuestSection() {
             </span>
           </div>
 
-          <div className="quest-image-placeholder">
-            <ImagePlus size={36} />
-            <span>IMAGEM/DESENHO DA QUEST</span>
+          <div className="quest-art">
+            <img
+              src={kitchenQuest}
+              alt="Mascote do HouseFlow varrendo o chão"
+              width="1024"
+              height="1024"
+              loading="lazy"
+            />
           </div>
 
           <div className="quest-card__content">
@@ -503,7 +518,7 @@ function QuestSection() {
             <p>
               {completed
                 ? "Você deixou a cozinha pronta para a próxima aventura."
-                : "Lave a louça e deixe a bancada livre."}
+                : "Varra o chão e deixe a cozinha pronta para todos."}
             </p>
           </div>
 
@@ -596,7 +611,15 @@ function Community() {
           <article className="podium-card podium-card--second">
             <span className="podium-card__position">2</span>
 
-            <div className="podium-card__avatar"></div>
+            <div className="podium-card__avatar">
+              <img
+                src={lucasAvatar}
+                alt="Avatar de Lucas"
+                width="72"
+                height="72"
+                loading="lazy"
+              />
+            </div>
 
             <strong>Lucas</strong>
             <small>610 XP</small>
@@ -608,8 +631,14 @@ function Community() {
             <span className="podium-card__crown">♛</span>
             <span className="podium-card__position">1</span>
 
-            <div className="podium-card__avatar podium-card__avatar--image">
-              <ImagePlus size={21} />
+            <div className="podium-card__avatar">
+              <img
+                src={mariaAvatar}
+                alt="Avatar de Maria"
+                width="72"
+                height="72"
+                loading="lazy"
+              />
             </div>
 
             <strong>Maria</strong>
@@ -621,7 +650,15 @@ function Community() {
           <article className="podium-card podium-card--third">
             <span className="podium-card__position">3</span>
 
-            <div className="podium-card__avatar"></div>
+            <div className="podium-card__avatar">
+              <img
+                src={joaoAvatar}
+                alt="Avatar de João"
+                width="72"
+                height="72"
+                loading="lazy"
+              />
+            </div>
 
             <strong>João</strong>
             <small>480 XP</small>
@@ -646,9 +683,14 @@ function FinalCTA() {
       </span>
 
       <div className="container final-cta__content">
-        <div className="mascot-placeholder">
-          <ImagePlus />
-          <span>MASCOTE/LOGO</span>
+        <div className="cta-mascot">
+          <img
+            src={mascotCta}
+            alt="Mascote do HouseFlow com uma lista de tarefas concluídas"
+            width="1024"
+            height="1024"
+            loading="lazy"
+          />
         </div>
 
         <div>
