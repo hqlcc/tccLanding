@@ -116,9 +116,8 @@ function ThemeToggle() {
         const saved = localStorage.getItem("houseflow-theme");
         if (saved === "light" || saved === "dark") return;
       } catch {
-        /* O tema também funciona sem armazenamento. */
       }
-      setTheme(event.matches ? "dark" : "light");
+      setTheme(event.matches ? "light" : "dark");
     }
     media.addEventListener("change", followSystem);
     return () => media.removeEventListener("change", followSystem);
@@ -136,7 +135,6 @@ function ThemeToggle() {
     try {
       localStorage.setItem("houseflow-theme", nextTheme);
     } catch {
-      /* Preferência mantida nesta visita. */
     }
     setTheme(nextTheme);
   }
