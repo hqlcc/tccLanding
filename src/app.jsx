@@ -110,7 +110,7 @@ function ThemeToggle() {
   );
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const media = window.matchMedia("(prefers-color-scheme: light)");
     function followSystem(event) {
       try {
         const saved = localStorage.getItem("houseflow-theme");
@@ -127,11 +127,11 @@ function ThemeToggle() {
     document.documentElement.dataset.theme = theme;
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#0d1916" : "#f3f3f3");
+      ?.setAttribute("content", theme === "light" ? "#f3f3f3" : "#0d1916");
   }, [theme]);
 
   function toggleTheme() {
-    const nextTheme = theme === "dark" ? "light" : "dark";
+    const nextTheme = theme === "light" ? "dark" : "light";
     try {
       localStorage.setItem("houseflow-theme", nextTheme);
     } catch {
@@ -144,10 +144,10 @@ function ThemeToggle() {
       className="theme-toggle"
       type="button"
       onClick={toggleTheme}
-      aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
-      title={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+      aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+      title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
     >
-      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
     </button>
   );
 }
